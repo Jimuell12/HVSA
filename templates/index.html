@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Probability Predictor</title>
+    <style>
+        .highlight-low {
+            background-color: rgba(0, 255, 0, 0.3); /* Red highlight for low AI probability */
+        }
+
+        .highlight-medium {
+            background-color: rgba(255, 255, 0, 0.3); /* Yellow highlight for medium AI probability */
+        }
+
+        .highlight-high {
+            background-color: rgba(255, 0, 0, 0.3); /* Green highlight for high AI probability */
+        }
+    </style>
+</head>
+<body style="height: 100vh;">
+    <form action="/predict_text" id="text-form" method="post" enctype="multipart/form-data">
+        <textarea id="text-input" name="text-input" rows="4" cols="50" placeholder="Enter text..."></textarea><br>
+        <input type="submit" id="text-predict-button" value="Predict Text"></button>
+    </form>
+
+    <form action="/upload" id="upload-form" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".txt,.docx,.pdf,.png,.jpg" capture onchange="submitForm()"/>
+        <input type="submit" id="predict-button" value="Predict" hidden>
+    </form>
+
+    {% if avg_ai_probability is defined and avg_human_probability is defined %}
+    <div id="result-summary">
+        Average AI Probability: {{ avg_ai_probability }}<br>
+        Average Human Probability: {{ avg_human_probability }}<br>
+    </div>
+    {% endif %}
+
+    <hr>
+
+    {% if predictions %}
+    <div id="detailed-predictions">
+        {% for prediction in predictions %}
+        <span class="{% if prediction.ai_probability < 0.5 %}highlight-low{% elif prediction.ai_probability < 0.9 %}highlight-medium{% else %}highlight-high{% endif %}">
+            {{ prediction.text | replace("\n", "<br>") | safe }}
+        </span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script>
+        function submitForm() {
+            document.getElementById("predict-button").click();
+        }
+    </script>
+    
+</body>
+</html>
