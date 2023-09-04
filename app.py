@@ -15,7 +15,7 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 
 app = Flask(__name__)
 
-model_path = "./ROBERTA"  # Update with your model path
+model_path = "rimuruu1/TextDetection"  # Update with your model path
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForSequenceClassification.from_pretrained(model_path)
 
