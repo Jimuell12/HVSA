@@ -9,7 +9,6 @@ import regex
 import numpy as np
 from PIL import Image
 import pytesseract
-import wordninja
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
@@ -23,6 +22,14 @@ model = AutoModelForSequenceClassification.from_pretrained(model_path)
 def index():
     return render_template('index.html')
 
+@app.route('/privacy-policy')
+def privacy_policy():
+    return render_template('pp.html')
+
+@app.route('/terms-of-service')
+def terms_of_service():
+    return render_template('tos.html')
+
 def extractpdf(file):
     paragraphs = []
     try:
@@ -33,7 +40,6 @@ def extractpdf(file):
             page = pdf_reader.pages[page_num]
             paragraphs.append(page.extract_text())
         
-        print(paragraphs)
 
     except Exception as e:
         print("An error occurred while extracting PDF:", str(e))
@@ -47,7 +53,6 @@ def extractdocx(file):
         for paragraph in doc.paragraphs:
             paragraphs.append(paragraph.text)
         
-        print(paragraphs)
     except Exception as e:
         print("An error occurred while extracting DOCX:", str(e))
     return paragraphs
@@ -56,7 +61,6 @@ def extractimage(file):
     image = np.array(Image.open(file))
     paragraphs = pytesseract.image_to_string(image)
     
-    # paragraphs = wordninja.split(paragraphs)
     return paragraphs
 
 def predict(paragraphs):
@@ -178,6 +182,8 @@ def textpredict():
     else:
         return render_template('index.html', error="No input")
 
+
+app.static_folder = 'static'
 
 if __name__ == '__main__':
     app.run(debug=True)
