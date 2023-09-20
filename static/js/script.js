@@ -44,7 +44,10 @@ if(average < 40){
 }
 
 document.getElementById("result").style.display = 'flex';
-document.getElementById("input").style.marginLeft = '50px'
+if (window.innerWidth > 480) {
+    // Apply the margin only for larger screens
+    document.getElementById("input").style.marginLeft = '50px';
+}
 
 
 function openOverlay() {
@@ -54,6 +57,10 @@ function openOverlay() {
 // Function to close the overlay
 function closeOverlay() {
     document.getElementById("overlay").style.display = "none";
+}
+
+function closeErrorOverlay() {
+    document.getElementById("error-overlay").style.display = "none";
 }
 
 // Attach the openOverlay function to the "Report" label
