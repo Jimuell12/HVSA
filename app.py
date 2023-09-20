@@ -63,6 +63,16 @@ def extractimage(file):
     
     return paragraphs
 
+def extracttxt(file):
+    paragraphs = []
+    try:
+        text = file.read().decode('utf-8')
+        paragraphs = text.split('\n')
+    except Exception as e:
+        print("An error occurred while extracting TXT:", str(e))
+    return paragraphs
+
+
 def predict(paragraphs):
     predictions = []
 
@@ -108,58 +118,37 @@ def predict2(paragraph):
 def upload():
     file_content = request.files['file']
 
-    if file_content.filename.endswith('.pdf'):
+    # Convert the filename to lowercase for case-insensitive matching
+    filename = file_content.filename.lower()
+
+    if filename.endswith('.pdf'):
         paragraphs = extractpdf(file_content)
         predictions = predict(paragraphs)
-
-        # Compute average probabilities
-        total_ai_probability = sum(prediction["ai_probability"] for prediction in predictions)
-        total_human_probability = sum(prediction["human_probability"] for prediction in predictions)
-        avg_ai_probability = total_ai_probability / len(predictions)
-        avg_human_probability = total_human_probability / len(predictions)
-
-        return render_template(
-            'index.html',
-            avg_ai_probability=avg_ai_probability,
-            avg_human_probability=avg_human_probability,
-            predictions=predictions
-        )
-    elif file_content.filename.endswith(".docx"):
+    elif filename.endswith(".docx"):
         paragraphs = extractdocx(file_content)
         predictions = predict(paragraphs)
-
-        # Compute average probabilities
-        total_ai_probability = sum(prediction["ai_probability"] for prediction in predictions)
-        total_human_probability = sum(prediction["human_probability"] for prediction in predictions)
-        avg_ai_probability = total_ai_probability / len(predictions)
-        avg_human_probability = total_human_probability / len(predictions)
-
-
-        return render_template(
-            'index.html',
-            avg_ai_probability=avg_ai_probability,
-            avg_human_probability=avg_human_probability,
-            predictions=predictions
-        )
-    
-    elif file_content.filename.endswith(".png") or file_content.filename.endswith(".jpg"):
+    elif filename.endswith(".png") or filename.endswith(".jpg"):
         paragraphs = extractimage(file_content)
         predictions = predict2(paragraphs)
-
-        # Compute average probabilities
-        total_ai_probability = sum(prediction["ai_probability"] for prediction in predictions)
-        total_human_probability = sum(prediction["human_probability"] for prediction in predictions)
-        avg_ai_probability = total_ai_probability / len(predictions)
-        avg_human_probability = total_human_probability / len(predictions)
-
-        return render_template(
-            'index.html',
-            avg_ai_probability=avg_ai_probability,
-            avg_human_probability=avg_human_probability,
-            predictions=predictions
-        )
+    elif filename.endswith(".txt"):
+        paragraphs = extracttxt(file_content)
+        predictions = predict(paragraphs)
     else:
-        return render_template('index.html', error="Uploaded file must be a PDF or DOCX.")
+        return render_template('index.html', error="Uploaded file must be a PDF, DOCX, PNG, JPG, or TXT.")
+
+    # Compute average probabilities
+    total_ai_probability = sum(prediction["ai_probability"] for prediction in predictions)
+    total_human_probability = sum(prediction["human_probability"] for prediction in predictions)
+    avg_ai_probability = total_ai_probability / len(predictions)
+    avg_human_probability = total_human_probability / len(predictions)
+
+    return render_template(
+        'index.html',
+        avg_ai_probability=avg_ai_probability,
+        avg_human_probability=avg_human_probability,
+        predictions=predictions
+    )
+
 
 @app.route('/predict_text', methods=['POST'])
 def textpredict():
@@ -186,4 +175,4 @@ def textpredict():
 app.static_folder = 'static'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0",port=8080)
