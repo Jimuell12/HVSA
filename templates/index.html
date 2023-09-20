@@ -3,6 +3,7 @@
 <head>
     <title>HVSA</title>
     <link href='https://fonts.googleapis.com/css?family=Press Start 2P' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="/static/img/icon.png" type="image/x-icon"/>
@@ -88,8 +89,7 @@
                 </div>
             {% endif %}
 
-            <label id="print">Report</label>
-            <hr id="hrprint">
+            <label id="print"><u>Report</u></label>
 
         </div>
     </div>
@@ -147,6 +147,17 @@
             <p>HVSA, 2023.</p>
         </div>
     </footer>
+
+    {% if error %}
+    <div id="error-overlay" class="overlay">
+        <div id="error-content">
+            <h2>Error</h2>
+            <p id="error-message">{{error}}</p>
+            <button onclick="closeErrorOverlay()">Close</button>
+        </div>
+    </div>
+    {% endif %}
+    
 
     <div class="pixel-spinner" hidden>
         <div class="pixel"></div>
