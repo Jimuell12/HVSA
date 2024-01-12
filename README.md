@@ -47,9 +47,6 @@ The Academic Integrity Checker is a system designed for thesis purposes of EARIS
 2. Upload an academic work (text document) for analysis.
 3. Receive the classification result indicating whether the work is likely created by a human or AI.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
