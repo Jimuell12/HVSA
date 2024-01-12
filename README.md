@@ -57,6 +57,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For inquiries, issues, or collaborations, please contact [Jimuel Flojera] at your.email@example.com.
+For inquiries, issues, or collaborations, please contact [Jimuel Flojera] at flojera.j.bscs@gmail.com.
 
 Feel free to customize the content according to your specific details and preferences.
