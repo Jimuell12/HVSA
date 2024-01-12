@@ -9,7 +9,6 @@ The Academic Integrity Checker is a system designed for thesis purposes of EARIS
 - **Text Classification:** The system utilizes a fine-tuned RoBERTa model to perform text classification on academic works.
 - **Flask Backend:** The backend server is implemented using Flask, providing a robust and scalable foundation for the system.
 - **User Interface (UI):** A simple and intuitive UI is provided for users to submit academic works and receive classification results.
-- **Authentication:** Ensure secure access to the system by implementing user authentication.
 
 ## Getting Started
 
