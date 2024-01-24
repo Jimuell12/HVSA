@@ -51,9 +51,10 @@ The HVSA is a system designed for thesis purposes of EARIST MANILA students. The
 ## Acknowledgments
 
 - Special thanks to the Hugging Face community for providing pre-trained models and resources.
+- We extend our heartfelt gratitude to our thesis adviser, Joevy Fajardo, for invaluable guidance, support, and mentorship throughout the research process.
+- We also extend our gratitude to Professor Merlita Latip, our thesis course professor, for her insightful feedback, encouragement, and dedication to our academic growth.
 
 ## Contact
 
-For inquiries, issues, or collaborations, please contact [Jimuel Flojera] at flojera.j.bscs@gmail.com.
+For inquiries, issues, or collaborations, please contact Jimuel Flojera at flojera.j.bscs@gmail.com.
 
-Feel free to customize the content according to your specific details and preferences.
